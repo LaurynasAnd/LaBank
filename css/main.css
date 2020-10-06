@@ -1,0 +1,43 @@
+@import './reset.css';
+
+
+#header{
+    height: 50px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--primary-color);
+    justify-content: space-between;
+
+}
+    #header .logo{
+        font-family: 'Poppins', sans-serif;
+        font-size: 30px;
+        font-weight: 800;
+    }
+    #header .menu-btn{
+        width: 50px;
+        height: 50px;
+        background-color: var(--secondary-color);
+        position: relative;
+    }
+        #header .menu-line{
+            width: 32px;
+            height: 4px;
+            background-color: var(--bg-dark);
+            transform-origin: center;
+            position: absolute;
+            left: 50%;
+        }
+        #header .menu-line:nth-child(1){
+            top: 12px;
+            transform: translate(-50%);
+        }
+        #header .menu-line:nth-child(2){
+            top: 23px;
+            transform: translate(-50%);
+        }
+        #header .menu-line:nth-child(3){
+            top: 34px;
+            transform: translate(-50%);
+        }

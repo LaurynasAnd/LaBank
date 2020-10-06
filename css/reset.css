@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import './font-awesome.min.css';
+body,
+body * {
+margin: 0;
+padding: 0;
+vertical-align: top;
+box-sizing: border-box;
+font-family: 'Roboto', sans-serif;
+word-break: break-all;
+}
+:root{
+    --primary-color: #27ae60;
+    --secondary-color: #f39c12;
+    --bg-light: #ecf0f1;
+    --bg-dark: #7f8c8d;
+}
