@@ -1,13 +1,15 @@
 body {
     display: grid;
     grid-template-columns: 1fr;
+    grid-template-rows: 50px 1fr;
     grid-template-areas: 
         "header"
-        "main_content"
-        
+        "main_content";
+    height: 100vh;
 }
 
 #header{grid-area: header;}
+#main_content{grid-area: main_content;}
 .container {
     display: grid;
     grid-template-columns: 15px 1fr 15px ;

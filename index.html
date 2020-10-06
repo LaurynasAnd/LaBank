@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bank</title>
     <link rel="stylesheet" href="./css/main.css">
 </head>
+
 <body>
     <header id="header">
         <div class="logo">LaBank</div>
@@ -14,13 +16,46 @@
             <div class="menu-line"></div>
             <div class="menu-line"></div>
         </div>
+        <div class="navtab">
+            <a href="">Pridėti lėšų</a>
+            <a href="">Nuskaičiuoti lėšas</a>
+        </div>
+        <div class="navmenu">
+            <a href="">Pridėti lėšų</a>
+            <a href="">Nuskaičiuoti lėšas</a>
+        </div>
     </header>
     <main id="main_content" class="container">
         <div class="row">
-            <div class="col-12">
-                here lies the bank content
+            <div class="infoscreen col-12">
+                <div class="title">
+                    <input type="checkbox" name="" id="check_all">
+                    <div class="iban">Sąskaitos numeris</div>
+                    <div class="amount">Kiekis</div>
+                </div>
+                <div class="account">
+                    <input type="checkbox" name="" id="check1">
+                    <div class="iban">LT100000215758453254</div>
+                    <div class="amount">1000251.25 &euro;</div>
+                </div>
+                <div class="mobile-account">
+                    <div class="select">
+
+                        <select name="iban-no" id="">
+                            <option value="account1">LT100000215758453254</option>
+                            <option value="account2">LT100000215758455500</option>
+                        </select>
+                    </div>
+                    <div class="amount">
+                        <label>Sąskaitos likutis</label>
+                        <h2>1000251.25 &euro;</h2>
+                    </div>
+                </div>
+                <button type="submit">Ištrinti sąskaitą</button>
             </div>
         </div>
     </main>
+    <script src="./js/main.js" type="module"></script>
 </body>
+
 </html>

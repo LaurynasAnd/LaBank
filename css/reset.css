@@ -11,8 +11,8 @@ font-family: 'Roboto', sans-serif;
 word-break: break-all;
 }
 :root{
-    --primary-color: #27ae60;
-    --secondary-color: #f39c12;
+    --primary-color: #2c3e50;
+    --secondary-color: #e67e22;
     --bg-light: #ecf0f1;
     --bg-dark: #7f8c8d;
 }

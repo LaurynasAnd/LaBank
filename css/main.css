@@ -1,34 +1,71 @@
 @import './reset.css';
+@import './layout.css';
+
+
+/************************************************************/
+/* Header css */
+/************************************************************/
 
 
 #header{
     height: 50px;
     width: 100%;
-    display: flex;
-    flex-direction: row;
+    position: relative;
     background-color: var(--primary-color);
     justify-content: space-between;
 
 }
     #header .logo{
         font-family: 'Poppins', sans-serif;
-        font-size: 30px;
+        font-size: 40px;
+        line-height: 50px;
         font-weight: 800;
+        display: inline-block;
+        margin-left: 5px;
+        letter-spacing: 2px;
+        float: left;
+        color: var(--secondary-color);
     }
+    #header .navtab{
+        display: inline-block;
+        float: right;
+        display: none;
+        
+    }
+        #header .navtab > a{
+            margin-right: 20px;
+            font-size: 20px;
+            line-height: 50px;
+            text-decoration: none;
+            color: #fff;
+            transition: 500ms;
+        }
+        #header .navtab > a:hover{
+            color: var(--secondary-color);
+        }
     #header .menu-btn{
         width: 50px;
         height: 50px;
-        background-color: var(--secondary-color);
+        display: inline-block;
+        float: right;
         position: relative;
+        cursor: pointer;
+        transition: 500ms;
     }
         #header .menu-line{
             width: 32px;
             height: 4px;
-            background-color: var(--bg-dark);
+            background-color: var(--secondary-color);
             transform-origin: center;
             position: absolute;
             left: 50%;
         }
+            #header .menu-btn:hover{
+                background-color: var(--secondary-color);
+            }
+            #header .menu-btn:hover .menu-line{
+                background-color: var(--primary-color);
+            }
         #header .menu-line:nth-child(1){
             top: 12px;
             transform: translate(-50%);
@@ -41,3 +78,152 @@
             top: 34px;
             transform: translate(-50%);
         }
+    #header .navmenu{
+        position: absolute;
+        top: -200px;
+        left: 0px;
+        right: 0px;
+        background-color: var(--primary-color);
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+        /* z-index: -1; */
+        transition: transform 0.5s;
+    }
+    #header .navmenu.active{
+        transform: translateY(250px);
+        z-index: 2;
+        transition: transform 0.5s;
+    }
+    #header .navmenu > a{
+        margin-right: 20px;
+        font-size: 20px;
+        line-height: 50px;
+        text-decoration: none;
+        color: #fff;
+        transition: 500ms;
+
+    }
+    #header .navmenu > a:hover{
+        color: var(--secondary-color);
+    }
+
+
+/************************************************************/
+/* Content css */
+/************************************************************/
+#main_content {
+    background-color: var(--bg-dark);
+}
+    #main_content .infoscreen {
+        background-color: var(--bg-light);
+        border-radius: 20px;
+        overflow: hidden;
+        padding: 15px;
+        font-size: 16px;
+        position: relative;
+    }
+        #main_content .infoscreen .title,
+        #main_content .infoscreen .account{
+            display: none;
+        }
+            #main_content .infoscreen .mobile-account{
+                height: 100%;
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-rows: 30px 1fr;
+                grid-template-areas: "iban" "amount";
+            }
+
+            #main_content .mobile-account .select{
+                grid-area: iban;
+            }
+                #main_content .mobile-account select{
+                    width: 100%;
+                    font-size: 20px;
+                    margin-bottom: 30px;
+                }
+            #main_content .mobile-account .amount {
+                grid-area: amount;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+                .mobile-account .amount label {
+                    font-size: 20px;
+                    margin-bottom: 30px;
+                }
+                .mobile-account .amount h2 {
+                    font-size: 35px;
+                    color: var(--secondary-color);
+                    font-weight: 900;
+                }
+        #main_content .infoscreen button{
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translate(-50%);
+            padding: 10px 20px;
+            font-size: 16px;
+            line-height: 20px;
+            font-weight: 700;
+            color: #fff;
+            background-color: var(--secondary-color);
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+            #main_content .infoscreen button:hover {
+                background-color: var(--primary-color);
+            }
+
+/************************************************************/
+/* Media querries */
+/************************************************************/
+@media screen and (min-width: 480px){
+    #main_content .infoscreen .mobile-account{
+        display: none;
+    }
+    #main_content .infoscreen .title,
+    #main_content .infoscreen .account{
+        display: grid;
+        grid-template-columns: 30px 1fr 100px;
+        grid-template-areas: "check iban amount";
+        padding: 20px 0;
+        border-bottom: 2px solid #aaa;
+    }
+        .infoscreen input{
+            grid-area: check;
+            align-self: center;
+            justify-self: start;
+        }
+        .infoscreen .iban{
+            grid-area: iban;
+        }
+        .infoscreen .amount{
+            grid-area: amount;
+            text-align: right;
+        }
+        #main_content .infoscreen button{
+            position: unset;
+            transform: unset;
+            display: inline-block;
+            float: right;
+            margin-top: 30px;
+            visibility: hidden;
+        }
+        input[type=checkbox]:checked ~ button {
+            visibility: visible;
+        }
+}
+@media screen and (min-width: 768px){
+    #header .navtab{
+        display: inline-block;
+    }
+    #header .menu-btn{
+        display: none;
+    }
+}
