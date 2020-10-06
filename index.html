@@ -9,34 +9,43 @@
 </head>
 
 <body>
-    <header id="header">
-        <div class="logo">LaBank</div>
-        <div class="menu-btn">
-            <div class="menu-line"></div>
-            <div class="menu-line"></div>
-            <div class="menu-line"></div>
+    <header id="header" class="container">
+        <div class="row">
+            <div class="logo col-12">LaBank</div>
+
         </div>
-        <div class="navtab">
+        <!-- <div class="menu-btn">
+            <div class="menu-line"></div>
+            <div class="menu-line"></div>
+            <div class="menu-line"></div>
+        </div> -->
+        <!-- <div class="navtab">
             <a href="">Pridėti lėšų</a>
             <a href="">Nuskaičiuoti lėšas</a>
         </div>
         <div class="navmenu">
             <a href="">Pridėti lėšų</a>
             <a href="">Nuskaičiuoti lėšas</a>
-        </div>
+        </div> -->
     </header>
     <main id="main_content" class="container">
         <div class="row">
             <div class="infoscreen col-12">
+                <h2 class="welcome">Sveiki, Jonai Jonaiti</h2>
                 <div class="title">
                     <input type="checkbox" name="" id="check_all">
-                    <div class="iban">Sąskaitos numeris</div>
-                    <div class="amount">Kiekis</div>
+                    <div class="iban">Sąskaita</div>
+                    <div class="amount">Galutinis likutis</div>
                 </div>
                 <div class="account">
-                    <input type="checkbox" name="" id="check1">
-                    <div class="iban">LT100000215758453254</div>
+                    <input type="checkbox" name="" class="check check1">
+                    <div class="iban">LT100000215758453254 JONAS JONAITIS</div>
                     <div class="amount">1000251.25 &euro;</div>
+                </div>
+                <div class="account">
+                    <input type="checkbox" name="" class="check check2">
+                    <div class="iban">LT100000215758450101 JONAS JONAITIS</div>
+                    <div class="amount">1000.5 &euro;</div>
                 </div>
                 <div class="mobile-account">
                     <div class="select">
@@ -52,6 +61,8 @@
                     </div>
                 </div>
                 <button type="submit">Ištrinti sąskaitą</button>
+                <a href="#" class="link remove-money">Nuskaičiuoti lėšas</a>
+                <a href="#" class="link add-money">Pridėti lėšų</a>
             </div>
         </div>
     </main>

@@ -8,12 +8,12 @@
 
 
 #header{
-    height: 50px;
+    /* height: 50px; */
     width: 100%;
     position: relative;
     background-color: var(--primary-color);
     justify-content: space-between;
-
+    padding: 0;
 }
     #header .logo{
         font-family: 'Poppins', sans-serif;
@@ -26,7 +26,7 @@
         float: left;
         color: var(--secondary-color);
     }
-    #header .navtab{
+    /* #header .navtab{
         display: inline-block;
         float: right;
         display: none;
@@ -42,8 +42,8 @@
         }
         #header .navtab > a:hover{
             color: var(--secondary-color);
-        }
-    #header .menu-btn{
+        } */
+    /* #header .menu-btn{
         width: 50px;
         height: 50px;
         display: inline-block;
@@ -51,8 +51,8 @@
         position: relative;
         cursor: pointer;
         transition: 500ms;
-    }
-        #header .menu-line{
+    } */
+        /* #header .menu-line{
             width: 32px;
             height: 4px;
             background-color: var(--secondary-color);
@@ -77,8 +77,8 @@
         #header .menu-line:nth-child(3){
             top: 34px;
             transform: translate(-50%);
-        }
-    #header .navmenu{
+        } */
+    /* #header .navmenu{
         position: absolute;
         top: -200px;
         left: 0px;
@@ -90,8 +90,8 @@
         justify-content: center;
         align-items: flex-end;
         /* z-index: -1; */
-        transition: transform 0.5s;
-    }
+        /* transition: transform 0.5s; */
+    /* }
     #header .navmenu.active{
         transform: translateY(250px);
         z-index: 2;
@@ -108,7 +108,7 @@
     }
     #header .navmenu > a:hover{
         color: var(--secondary-color);
-    }
+    } */ 
 
 
 /************************************************************/
@@ -161,9 +161,18 @@
                     color: var(--secondary-color);
                     font-weight: 900;
                 }
+        #main_content .infoscreen .welcome{
+            /* font-size: 35px;
+            font-weight: 700; */
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        #main_content .infoscreen a,
         #main_content .infoscreen button{
             position: absolute;
-            bottom: 20px;
+            text-decoration: none;
+            width: fit-content;
             left: 50%;
             transform: translate(-50%);
             padding: 10px 20px;
@@ -176,6 +185,16 @@
             border-radius: 20px;
             cursor: pointer;
         }
+        #main_content .infoscreen .add-money {
+            bottom: 140px;
+        }
+        #main_content .infoscreen .remove-money {
+            bottom: 90px;
+        }
+        #main_content .infoscreen button {
+            bottom: 20px;
+        }
+            #main_content .infoscreen a:hover,
             #main_content .infoscreen button:hover {
                 background-color: var(--primary-color);
             }
@@ -190,10 +209,14 @@
     #main_content .infoscreen .title,
     #main_content .infoscreen .account{
         display: grid;
-        grid-template-columns: 30px 1fr 100px;
+        grid-template-columns: 30px 1fr 200px;
         grid-template-areas: "check iban amount";
         padding: 20px 0;
-        border-bottom: 2px solid #aaa;
+        border-bottom: 2px solid #ccc;
+    }
+    #main_content .infoscreen .title{
+        font-weight: 900;
+        border-bottom: 2px solid #777;
     }
         .infoscreen input{
             grid-area: check;
@@ -207,17 +230,17 @@
             grid-area: amount;
             text-align: right;
         }
+        #main_content .infoscreen a,
         #main_content .infoscreen button{
             position: unset;
             transform: unset;
             display: inline-block;
             float: right;
             margin-top: 30px;
+            margin-left: 10px;
             visibility: hidden;
         }
-        input[type=checkbox]:checked ~ button {
-            visibility: visible;
-        }
+        #main_content .infoscreen button
 }
 @media screen and (min-width: 768px){
     #header .navtab{
