@@ -238,9 +238,12 @@
             float: right;
             margin-top: 30px;
             margin-left: 10px;
-            visibility: hidden;
         }
-        #main_content .infoscreen button
+        #main_content .infoscreen a,
+        #main_content .infoscreen button#delete{
+            visibility: hidden;
+
+        }
 }
 @media screen and (min-width: 768px){
     #header .navtab{

@@ -1,0 +1,18 @@
+h1 {
+    color: var(--secondary-color);
+    word-break: break-word;
+    margin-bottom: 20px;
+}
+p{
+    font-size: 14px;
+    word-break: break-word;
+    margin-bottom: 30px;
+}
+input {
+    width: 100%;
+    border: none;
+    font-size: 20px;
+    padding: 10px;
+    margin-bottom: 20px;
+
+}

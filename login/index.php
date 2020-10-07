@@ -1,32 +1,25 @@
+<?php 
+
+// defined('BANK')  || die;
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bank</title>
-    <link rel="stylesheet" href="./css/main.css">
+    <title>LaBank</title>
+    <link rel="stylesheet" href="../css/main.css" type="text/css">
 </head>
 
 <body>
     <header id="header" class="container">
         <div class="row">
-            <div class="logo col-12">LaBank</div>
-
+            <div class="logo col-11">LaBank</div>
+            <a href="../login/index.html"></a>
         </div>
-        <!-- <div class="menu-btn">
-            <div class="menu-line"></div>
-            <div class="menu-line"></div>
-            <div class="menu-line"></div>
-        </div> -->
-        <!-- <div class="navtab">
-            <a href="">Pridėti lėšų</a>
-            <a href="">Nuskaičiuoti lėšas</a>
-        </div>
-        <div class="navmenu">
-            <a href="">Pridėti lėšų</a>
-            <a href="">Nuskaičiuoti lėšas</a>
-        </div> -->
     </header>
     <main id="main_content" class="container">
         <div class="row">
@@ -60,13 +53,13 @@
                         <h2>1000251.25 &euro;</h2>
                     </div>
                 </div>
-                <button type="submit">Ištrinti sąskaitą</button>
-                <a href="#" class="link remove-money">Nuskaičiuoti lėšas</a>
-                <a href="#" class="link add-money">Pridėti lėšų</a>
+                <button id="delete" type="submit">Ištrinti sąskaitą</button>
+                <a href="../remove/index.php" class="link remove-money">Nuskaičiuoti lėšas</a>
+                <a href="../add/index.php" class="link add-money">Pridėti lėšų</a>
             </div>
         </div>
     </main>
-    <script src="./js/main.js" type="module"></script>
+    <script src="../js/main.js" type="text/javascript"></script>
 </body>
 
 </html>

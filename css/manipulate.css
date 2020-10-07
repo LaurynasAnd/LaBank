@@ -1,0 +1,46 @@
+h1 {
+    color: var(--secondary-color);
+    word-break: break-word;
+    margin-bottom: 20px;
+}
+p{
+    font-size: 14px;
+    word-break: break-word;
+    margin-bottom: 30px;
+}
+.account-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+    .account-info div {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        margin-bottom: 10px;
+        gap: 5px;
+    }
+    .label {
+        text-align: right;
+    }
+input {
+    width: 100%;
+    border: none;
+    font-size: 20px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+.submit {
+    bottom: 150px;
+}
+
+@media screen and (min-width: 480px){
+    .account-info div {
+        grid-template-columns: 200px 1fr;
+        gap: 5px;
+    }
+    .label {
+        text-align: right;
+    }
+}

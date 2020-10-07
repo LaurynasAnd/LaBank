@@ -13,7 +13,7 @@ body {
 .container {
     display: grid;
     grid-template-columns: 15px 1fr 15px ;
-    padding: 90px 0;
+    padding: 50px 0;
     gap: 50px 0;
 }
     .container > .row {
