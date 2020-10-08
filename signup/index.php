@@ -1,14 +1,15 @@
 <?php
-
+session_start();
+_log(str_replace('\\signup', '', __DIR__));
 $check = 0; //this variable will count how many inputs are valid
 $responses = [
     'wrongName' => '',
     'wrongSurname' => '',
     'badID' => '',
-    'pswMissmatch' => ''
+    'pswMissmatch' => '',
+    'noSignup' => ''
 ];
 if(0 != count($_POST)){ //patikrinama, ar post nera paliktas tuscias
-
     //check name
     if(!preg_match_all('/[^\p{L}\p{M}*]+/u', $_POST['name']) && 0 != strlen($_POST['name'])){ // checks if there are only letters and returns 0
         $check++;
@@ -64,9 +65,24 @@ if(0 != count($_POST)){ //patikrinama, ar post nera paliktas tuscias
 
 
     if(4 == $check){ //jei praeina visus patikrinimus
-        //prideti nauja vartotoja prie sistemos
+        //prideti nauja vartotoja prie sistemos ikeliama funkcija.
         require __DIR__.'/../data/addAccount.php';
-        _log('Registracija sėkminga');
+        if(addAccount([
+            'surname' => $_POST['surname'],
+            'name' => $_POST['name'],
+            'idNumber' => $_POST['idNumber'],
+            'psw' => md5($_POST['psw']),
+            'balance' => 0
+        ])){
+            // jei priregino, peradresuoti i pagrindini puslapi nurodant jo paties ID sistemoje
+            $_SESSION['message'] = 'Jūsų registracija sėkminga. Norėdami prisijungti prie elektroninės bankininkystės, įveskite prisijungimo duomenis';
+            header('Location: ../index.php');
+            die;
+        } else {
+            //jei nepavyko prisiregistruoti, i6mesti pranesima, kad tokiu ID jau registruotas zmogus
+            $responses['noSignup'] = 'Vartotojas su tokiu asmens kodu jau registruotas.';
+        }
+        
     } else {
         //atmesti pildyma, ir parasyti, kas negerai parasyta buvo
     }
@@ -95,7 +111,8 @@ if(0 != count($_POST)){ //patikrinama, ar post nera paliktas tuscias
         <div class="row">
             <div class="infoscreen col-12">
                 <h1>Sveiki atvykę į LaBank</h1>
-                <p>Norėdami užsiregistruoti užpildykite žemiau esančius laukus. Visi laukai yra privalomi</p>
+                <p>Norėdami užsiregistruoti užpildykite žemiau esančius laukus. Visi laukai yra privalomi.</p>
+                <p style="color:red;"><?=$responses['noSignup']?></p>
                 <form action="" method="post" accept-charset="utf-8">
                     <div style="color:red; font-size:14px;"><?= $responses['wrongName']?></div>
                     <input type="text" name="name" id="name" placeholder="Vardas">
