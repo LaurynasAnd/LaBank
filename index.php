@@ -1,10 +1,15 @@
 <?php
+session_start();
 define('BANK', 'true');
 define('MAIN_DIR', __DIR__.'/');
 
+$answers = [];
 
-
-
+// after sign in session should be saved a message. Save that message inside and delete it from session array
+if(isset($_SESSION['message'])){
+    $answers['message'] = $_SESSION['message'];
+    unset($_SESSION['message']);
+}
 $route = str_replace(MAIN_DIR,'',$_SERVER['REQUEST_URI']);
 _log($route);
 if('login' == $route){
@@ -53,6 +58,11 @@ if('remove' == $route){
             </div>
         </div>
         
+        <?php if(isset($answers['message'])) : ?>
+            <div id="message"><div class="message"><?=$answers['message']?></div></div>
+        <?php 
+            unset($answers['message']);endif; 
+        ?>
     </main>
     <a href="./signup/">Atidaryti sąskaitą</a>
 </body>

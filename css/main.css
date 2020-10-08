@@ -116,6 +116,7 @@
 /************************************************************/
 #main_content {
     background-color: var(--bg-dark);
+    position: relative;
 }
     #main_content .infoscreen {
         background-color: var(--bg-light);
@@ -199,6 +200,22 @@
                 background-color: var(--primary-color);
             }
 
+    #message{
+        position: absolute;
+        display: grid;
+        grid-template-columns: 15px 1fr 15px ;
+        top: 0;
+        background-color: sandybrown;
+
+
+    }
+
+    #message > .message {
+        grid-column: 2 / 3;
+        word-break: break-word;
+        color: crimson;
+    }
+
 /************************************************************/
 /* Media querries */
 /************************************************************/
@@ -251,5 +268,11 @@
     }
     #header .menu-btn{
         display: none;
+    }
+}
+
+@media (min-width: 1200px){
+    #message {
+    grid-template-columns: 1fr 1140px 1fr ;
     }
 }
