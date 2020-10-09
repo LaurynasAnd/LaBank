@@ -1,3 +1,13 @@
+<?php
+session_start();
+if(!($_SESSION['login'] ?? 0)){
+    header('Location: ../');
+    die;
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,8 +22,8 @@
 <body>
     <header id="header" class="container">
         <div class="row">
-            <div class="logo col-12">LaBank</div>
-
+            <div class="logo col-11">LaBank</div>
+            <a href="../login"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
         </div>
     </header>
     <main id="main_content" class="container">

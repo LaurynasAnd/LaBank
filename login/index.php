@@ -1,7 +1,20 @@
 <?php 
-
-// defined('BANK')  || die;
-
+session_start();
+if(!($_SESSION['login'] ?? 0)){
+    header('Location: ../');
+    die;
+}
+$answers = [
+    'badInput' => ''
+];
+_log($_SESSION['user']);
+$user = $_SESSION['user'];
+_log($_POST??0);
+if(isset($_POST['delete'])){
+    if (0 !== $user['balance']){
+        $answers['balance'] = 'Sąskaitą galima ištrinti, tik kai ji yra tuščia';
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -18,34 +31,29 @@
     <header id="header" class="container">
         <div class="row">
             <div class="logo col-11">LaBank</div>
-            <a href="../login/index.html"></a>
+            <a href="../index.php?logout=1" class="logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
         </div>
     </header>
     <main id="main_content" class="container">
         <div class="row">
-            <div class="infoscreen col-12">
-                <h2 class="welcome">Sveiki, Jonai Jonaiti</h2>
+            <form class="infoscreen col-12" method="post">
+                <h2 class="welcome">Sveiki, <?=$user['name']?> <?=$user['surname']?></h2>
                 <div class="title">
                     <input type="checkbox" name="" id="check_all">
                     <div class="iban">Sąskaita</div>
                     <div class="amount">Galutinis likutis</div>
                 </div>
                 <div class="account">
-                    <input type="checkbox" name="" class="check check1">
-                    <div class="iban">LT100000215758453254 JONAS JONAITIS</div>
-                    <div class="amount">1000251.25 &euro;</div>
+                    <input type="checkbox" name="marked-checkbox" value="<?=$user['iban']?>" class="check check1">
+                    <div class="iban"><?=$user['iban']?> <?=strtoupper($user['name'])?> <?=strtoupper($user['surname'])?></div>
+                    <div class="amount"><?=$user['balance']?> &euro;</div>
                 </div>
-                <div class="account">
-                    <input type="checkbox" name="" class="check check2">
-                    <div class="iban">LT100000215758450101 JONAS JONAITIS</div>
-                    <div class="amount">1000.5 &euro;</div>
-                </div>
+                
                 <div class="mobile-account">
                     <div class="select">
 
                         <select name="iban-no" id="">
-                            <option value="account1">LT100000215758453254</option>
-                            <option value="account2">LT100000215758455500</option>
+                            <option value="account1"><?=$user['iban']?></option>
                         </select>
                     </div>
                     <div class="amount">
@@ -53,11 +61,16 @@
                         <h2>1000251.25 &euro;</h2>
                     </div>
                 </div>
-                <button id="delete" type="submit">Ištrinti sąskaitą</button>
+                <button id="delete" type="submit" name="delete">Ištrinti sąskaitą</button>
                 <a href="../remove/index.php" class="link remove-money">Nuskaičiuoti lėšas</a>
                 <a href="../add/index.php" class="link add-money">Pridėti lėšų</a>
-            </div>
+            </form>
         </div>
+        <?php if(isset($answers['balance'])) : ?>
+            <div id="message"><div class="message"><?=$answers['balance']?></div></div>
+        <?php 
+            unset($answers['balance']);endif; 
+        ?>
     </main>
     <script src="../js/main.js" type="text/javascript"></script>
 </body>

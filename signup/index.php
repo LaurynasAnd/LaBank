@@ -1,4 +1,6 @@
 <?php
+
+// defined('BANK')  || die;
 session_start();
 _log(str_replace('\\signup', '', __DIR__));
 $check = 0; //this variable will count how many inputs are valid

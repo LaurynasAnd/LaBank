@@ -26,6 +26,18 @@
         float: left;
         color: var(--secondary-color);
     }
+    .fa{
+        color: #fff;
+        font-size: 40px;
+        line-height: 50px;
+        align-self: center;
+    }
+    .fa:hover{
+        color: var(--secondary-color);
+    }
+    .row > a {
+        text-align: right;
+    }
     /* #header .navtab{
         display: inline-block;
         float: right;
@@ -206,11 +218,12 @@
         grid-template-columns: 15px 1fr 15px ;
         top: 0;
         background-color: sandybrown;
-
+        width: 100%;
 
     }
 
     #message > .message {
+        width: 100%;
         grid-column: 2 / 3;
         word-break: break-word;
         color: crimson;

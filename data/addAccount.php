@@ -1,6 +1,6 @@
 <?php
 function addAccount($data){
-    $db = json_decode(file_get_contents(__DIR__.'/data.json'), 1);
+    $db = json_decode(file_get_contents(__DIR__.'/users.json'), 1);
     if(isset($db[$data['idNumber']])){
         return false;
     } else {
@@ -14,7 +14,7 @@ function addAccount($data){
             'balance' => 0
         ];
         $db['lastIBAN']++;
-        file_put_contents(__DIR__.'/data.json', json_encode($db));
+        file_put_contents(__DIR__.'/users.json', json_encode($db));
         return true;
     }
     
