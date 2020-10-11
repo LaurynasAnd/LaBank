@@ -7,14 +7,40 @@ if(!($_SESSION['login'] ?? 0)){
 $answers = [
     'badInput' => ''
 ];
-_log($_SESSION['user']);
+if(isset($_SESSION['message'])){
+    $answers['message'] = $_SESSION['message'];
+    unset($_SESSION['message']);
+}
 $user = $_SESSION['user'];
-_log($_POST??0);
+//in case account is deleted
+_log($_POST);
+_log($user['balance']);
 if(isset($_POST['delete'])){
-    if (0 !== $user['balance']){
-        $answers['balance'] = 'Sąskaitą galima ištrinti, tik kai ji yra tuščia';
+    _log('trinsim');
+    if (0 != $user['balance']){
+        $answers['delete'] = 'Sąskaitą galima ištrinti, tik kai ji yra tuščia';
+    } else {
+        require __DIR__.'/../data/deleteAccount.php';
+        if(deleteAccount($user['idNumber'])){
+            $_SESSION['message'] = 'Jūsų sąskaita sėkmingai ištrinta';
+            header('Location: ../');
+            die;
+        }
     }
 }
+//add money to account
+if(isset($_POST['add'])){ //NOTE
+    $_SESSION['action'] = 'add';
+    header('Location: ../add');
+    die;
+}
+//remove money from account
+if(isset($_POST['remove'])){
+        $_SESSION['action'] = 'remove';
+        header('Location: ../remove');
+        die;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -58,18 +84,23 @@ if(isset($_POST['delete'])){
                     </div>
                     <div class="amount">
                         <label>Sąskaitos likutis</label>
-                        <h2>1000251.25 &euro;</h2>
+                        <h2><?=$user['balance']?> &euro;</h2>
                     </div>
                 </div>
                 <button id="delete" type="submit" name="delete">Ištrinti sąskaitą</button>
-                <a href="../remove/index.php" class="link remove-money">Nuskaičiuoti lėšas</a>
-                <a href="../add/index.php" class="link add-money">Pridėti lėšų</a>
+                <button href="../remove/index.php" class="link remove-money" type="submit" name="remove">Nuskaičiuoti lėšas</button>
+                <button href="../add/index.php" type="submit" class="link add-money" name="add">Pridėti lėšų</button>
             </form>
         </div>
-        <?php if(isset($answers['balance'])) : ?>
-            <div id="message"><div class="message"><?=$answers['balance']?></div></div>
+        <?php if(isset($answers['message'])) : ?>
+            <div id="message"><div class="message"><?=$answers['message']?></div></div>
         <?php 
-            unset($answers['balance']);endif; 
+            unset($answers['message']);endif; 
+        ?>
+        <?php if(isset($answers['delete'])) : ?>
+            <div id="message"><div class="message"><?=$answers['delete']?></div></div>
+        <?php 
+            unset($answers['delete']);endif; 
         ?>
     </main>
     <script src="../js/main.js" type="text/javascript"></script>

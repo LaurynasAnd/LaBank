@@ -5,6 +5,51 @@ if(!($_SESSION['login'] ?? 0)){
     die;
 }
 
+$user = $_SESSION['user'];
+$answers = [
+    'badInput' => ''
+];
+
+//now checking if the right ammount is inserted
+if (isset($_POST['amount'])){ // if Post['amount'] is not set, it means client just got here
+    $amount = $_POST['amount'];
+    //check if amount is correct.
+    if(!preg_match('/[^0-9.,]/', $amount)){ //to check if only numbers and separators are input
+        $amount = str_replace(',','.', $amount); //replace commas with dots.
+        if(!(count($amount = preg_split('/\./', $amount)) > 2)){ //patikrinimas ar geras formatas, ty yra ar ne per daug skiriamuju zenklu
+            //gerai   
+            if(isset($amount[1]) && (strlen($amount[1])>2) ?? 0){ //check if decimal has only two digits
+                $answers['badInput'] = 'Neteisingas sumos formatas';
+            } else{
+                $amount = isset($amount[1]) ?  ($amount[0]+ ($amount[1] / (10**strlen($amount[1])))) : $amount[0];
+                if (0 == $amount){
+                    $answers['badInput'] = 'Suma turi būti ne nulinė';
+                } elseif ($amount > $user['balance']) {                              //check if amount if more than balance
+                    $answers['badInput'] = 'Suma negali būti didesnė už sąskaitos likutį';
+                } else {
+                    require __DIR__.'/../data/changeBalance.php';
+                    if($success = removeMoney($user['idNumber'], $amount)){ //if money succesfully added, then redirect with success message
+                        $_SESSION['message'] = 'Pinigai sėkmingai nuimti nuo sąskaitos';
+                        $_SESSION['user'] = $success;
+                        header('Location: ../login/');
+                        die;
+                    } else {
+                        $answers['badInput'] = 'Dėl techninių kliūčių pinigai negalėjo būti pridėti prie sąskaitos';
+                    }
+                }
+            }
+
+        } else {
+            $answers['badInput'] = 'Neteisingas sumos formatas';
+        }
+    } else {
+        $answers['badInput'] = 'Neteisingas sumos formatas';
+    }
+
+
+} //
+
+
 
 ?>
 <!DOCTYPE html>
@@ -33,26 +78,31 @@ if(!($_SESSION['login'] ?? 0)){
                 <div class="account-info">
                     <div class="name"><div class="label">
                         Vardas: 
-                    </div>Jonas</div>
+                    </div><?=$user['name']?></div>
                     <div class="surname"><div class="label">
                         Pavardė: 
-                    </div>Jonaitis</div>
+                    </div><?=$user['surname']?></div>
                     <div class="iban"><div class="label">
                         Sąsk. numeris:
-                    </div>LT100000215758450101</div>
+                    </div><?=$user['iban']?></div>
                     <div class="balance"><div class="label">
                         Likutis: 
-                    </div>1002451.25</div>
+                    </div><?=$user['balance']?></div>
                     <div class="currency"><div class="label">
                         Valiuta: 
                     </div>Eur</div>
                 </div>
                 <form action="" method="post">
-                    <input type="number" name="amount" id="amount" placeholder="Įveskite sumą">
+                    <input type="text" name="amount" id="amount" placeholder="Įveskite sumą">
                     <button id="submit" type="submit">Nuskaičiuoti</button>
                 </form>
             </div>
         </div>
+        <?php if(isset($answers['badInput'])) : ?>
+            <div id="message"><div class="message"><?=$answers['badInput']?></div></div>
+        <?php 
+            unset($answers['badInput']);endif; 
+        ?>
     </main>
 </body>
 

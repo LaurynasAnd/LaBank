@@ -163,11 +163,12 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
+                justify-content: flex-start;
                 align-items: center;
             }
                 .mobile-account .amount label {
                     font-size: 20px;
-                    margin-bottom: 30px;
+                    margin: 20px 0;
                 }
                 .mobile-account .amount h2 {
                     font-size: 35px;
@@ -204,7 +205,7 @@
         #main_content .infoscreen .remove-money {
             bottom: 90px;
         }
-        #main_content .infoscreen button {
+        #main_content .infoscreen #delete {
             bottom: 20px;
         }
             #main_content .infoscreen a:hover,
@@ -227,6 +228,8 @@
         grid-column: 2 / 3;
         word-break: break-word;
         color: crimson;
+        font-size: 16px;
+        line-height: 20px;
     }
 
 /************************************************************/
@@ -269,7 +272,8 @@
             margin-top: 30px;
             margin-left: 10px;
         }
-        #main_content .infoscreen a,
+        #main_content .infoscreen button.add-money,
+        #main_content .infoscreen button.remove-money,
         #main_content .infoscreen button#delete{
             visibility: hidden;
 

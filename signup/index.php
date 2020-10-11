@@ -1,8 +1,7 @@
 <?php
 
-// defined('BANK')  || die;
 session_start();
-_log(str_replace('\\signup', '', __DIR__));
+$iban = json_decode(file_get_contents('../data/iban.json'), 1);
 $check = 0; //this variable will count how many inputs are valid
 $responses = [
     'wrongName' => '',
@@ -14,7 +13,12 @@ $responses = [
 if(0 != count($_POST)){ //patikrinama, ar post nera paliktas tuscias
     //check name
     if(!preg_match_all('/[^\p{L}\p{M}*]+/u', $_POST['name']) && 0 != strlen($_POST['name'])){ // checks if there are only letters and returns 0
-        $check++;
+        if (strlen($_POST['name'])>3){
+            $check++;
+        } else {
+            $responses['wrongName'] = 'Vardas turi būti ilgesnis nei 3 simboliai';
+
+        }
     } else {
         $responses['wrongName'] = 'Netinkamo formato vardas';
     }
@@ -22,7 +26,12 @@ if(0 != count($_POST)){ //patikrinama, ar post nera paliktas tuscias
     
     //check surname
     if(!preg_match_all('/[^\p{L}\p{M}*]+/u', $_POST['surname']) && 0 != strlen($_POST['surname'])){ // checks if there are only letters and returns 0
-        $check++;
+        if (strlen($_POST['surname'])>3){
+            $check++;
+        } else {
+            $responses['wrongSurname'] = 'Pavardė turi būti ilgesnė nei 3 simboliai';
+
+        }
     } else {
         $responses['wrongSurname'] = 'Netinkamo formato pavardė';
     }
@@ -56,13 +65,18 @@ if(0 != count($_POST)){ //patikrinama, ar post nera paliktas tuscias
         }
 
     } else {
-        $responses['badID'] = 'Neteisingai parašytas kodas';
+        $responses['badID'] = 'Neteisingo formato asmens kodas';
     }
     // check password
-    if(md5($_POST['psw']) == md5($_POST['repeatPsw']) && (0 != strlen($_POST['psw']) && 0 != strlen($_POST['repeatPsw']))){ //paswords are not empty and are the same
-        $check++;
+    if (strlen($_POST['psw'])>=8){ //password must be at least 8 symbols long
+
+        if(md5($_POST['psw']) == md5($_POST['repeatPsw']) && (0 != strlen($_POST['psw']) && 0 != strlen($_POST['repeatPsw']))){ //paswords are not empty and are the same
+            $check++;
+        } else {
+            $responses['pswMissmatch'] = 'Nesutampa slaptažodžiai';
+        }
     } else {
-        $responses['pswMissmatch'] = 'Nesutampa slaptažodžiai';
+        $responses['pswMissmatch'] = 'Slaptažodis turi būti mažiausiai 8 simbolių';
     }
 
 
@@ -70,8 +84,8 @@ if(0 != count($_POST)){ //patikrinama, ar post nera paliktas tuscias
         //prideti nauja vartotoja prie sistemos ikeliama funkcija.
         require __DIR__.'/../data/addAccount.php';
         if(addAccount([
-            'surname' => $_POST['surname'],
-            'name' => $_POST['name'],
+            'surname' => ucfirst($_POST['surname']),
+            'name' => ucfirst($_POST['name']),
             'idNumber' => $_POST['idNumber'],
             'psw' => md5($_POST['psw']),
             'balance' => 0
@@ -105,8 +119,8 @@ if(0 != count($_POST)){ //patikrinama, ar post nera paliktas tuscias
 <body>
     <header id="header" class="container">
         <div class="row">
-            <div class="logo col-12">LaBank</div>
-
+            <div class="logo col-11">LaBank</div>
+            <a href="../"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
         </div>
     </header>
     <main id="main_content" class="container">
@@ -116,14 +130,15 @@ if(0 != count($_POST)){ //patikrinama, ar post nera paliktas tuscias
                 <p>Norėdami užsiregistruoti užpildykite žemiau esančius laukus. Visi laukai yra privalomi.</p>
                 <p style="color:red;"><?=$responses['noSignup']?></p>
                 <form action="" method="post" accept-charset="utf-8">
+                    <h3 id="iban">Nauja sąskaita: <?='LT'.$iban['nextIBAN']?></h3>
                     <div style="color:red; font-size:14px;"><?= $responses['wrongName']?></div>
-                    <input type="text" name="name" id="name" placeholder="Vardas">
+                    <input type="text" name="name" id="name" placeholder="Vardas (min: 3 simboliai)">
                     <div style="color:red; font-size:14px;"><?= $responses['wrongSurname']?></div>
-                    <input type="text" name="surname" id="surname" placeholder="Pavardė">
+                    <input type="text" name="surname" id="surname" placeholder="Pavardė (min: 3 simboliai)">
                     <div style="color:red; font-size:14px;"><?= $responses['badID']?></div>
                     <input type="text" name="idNumber" id="idNumber" placeholder="Asmens kodas">
                     <div style="color:red; font-size:14px;"><?= $responses['pswMissmatch']?></div>
-                    <input type="password" name="psw" id="psw" placeholder="Slaptažodis">
+                    <input type="password" name="psw" id="psw" placeholder="Slaptažodis (min: 8 simboliai)">
                     <input type="password" name="repeatPsw" id="repeatPsw" placeholder="Pakartokite slaptažodį">
                     <button id="submit" type="submit">Atidaryti sąskaitą</button>
                 </form>

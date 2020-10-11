@@ -30,3 +30,8 @@ input {
     margin-bottom: 20px;
 
 }
+#main_content button#submit{
+    position: unset;
+    transform: unset;
+    margin-left: calc(50% - 57px);
+}
