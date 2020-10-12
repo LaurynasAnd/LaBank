@@ -1,8 +1,12 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 session_start();
-$iban = json_decode(file_get_contents('../data/iban.json'), 1);
+$iban = json_decode(file_get_contents(__DIR__.'/../data/iban.json'), 1);
 $check = 0; //this variable will count how many inputs are valid
+
 $responses = [
     'wrongName' => '',
     'wrongSurname' => '',
@@ -92,8 +96,9 @@ if(0 != count($_POST)){ //patikrinama, ar post nera paliktas tuscias
         ])){
             // jei priregino, peradresuoti i pagrindini puslapi nurodant jo paties ID sistemoje
             $_SESSION['message'] = 'Jūsų registracija sėkminga. Norėdami prisijungti prie elektroninės bankininkystės, įveskite prisijungimo duomenis';
-            header('Location: ../'); //move one directory up
-            die;
+            echo 'registracija sekminga';
+            // header('Location: ../'); //move one directory up
+            // die;
         } else {
             //jei nepavyko prisiregistruoti, i6mesti pranesima, kad tokiu ID jau registruotas zmogus
             $responses['noSignup'] = 'Vartotojas su tokiu asmens kodu jau registruotas.';

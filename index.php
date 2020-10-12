@@ -1,6 +1,9 @@
 <?php
-// print_r("oxoxo");
-// die;
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+//above display errors if they exist instread of 500 status error
+
 session_start();
 define('BANK', 'true');
 define('MAIN_DIR', __DIR__.'\\');
@@ -31,9 +34,8 @@ if('remove' == $route){
 
 //LOGIN
 if(!empty($_POST)){
-    _log($_POST);
     if (0 != strlen($_POST['idNumber'])){ //check if id number is entered 
-        $db = json_decode(file_get_contents(__DIR__.'./data/users.json'), 1); //the users data is imported
+        $db = json_decode(file_get_contents(__DIR__.'/data/users.json'), 1); //the users data is imported
         if(isset($db[$_POST['idNumber']])){ //check if user exists
             if ($db[$_POST['idNumber']]['psw'] == md5($_POST['psw'])){ // check if password is correct
                 $_SESSION['user'] = $db[$_POST['idNumber']];
