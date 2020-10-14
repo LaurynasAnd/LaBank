@@ -13,10 +13,7 @@ if(isset($_SESSION['message'])){
 }
 $user = $_SESSION['user'];
 //in case account is deleted
-_log($_POST);
-_log($user['balance']);
 if(isset($_POST['delete'])){
-    _log('trinsim');
     if (0 != $user['balance']){
         $answers['delete'] = 'Sąskaitą galima ištrinti, tik kai ji yra tuščia';
     } else {

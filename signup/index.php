@@ -96,9 +96,8 @@ if(0 != count($_POST)){ //patikrinama, ar post nera paliktas tuscias
         ])){
             // jei priregino, peradresuoti i pagrindini puslapi nurodant jo paties ID sistemoje
             $_SESSION['message'] = 'Jūsų registracija sėkminga. Norėdami prisijungti prie elektroninės bankininkystės, įveskite prisijungimo duomenis';
-            echo 'registracija sekminga';
-            // header('Location: ../'); //move one directory up
-            // die;
+            header('Location: ../'); //move one directory up
+            die;
         } else {
             //jei nepavyko prisiregistruoti, i6mesti pranesima, kad tokiu ID jau registruotas zmogus
             $responses['noSignup'] = 'Vartotojas su tokiu asmens kodu jau registruotas.';
